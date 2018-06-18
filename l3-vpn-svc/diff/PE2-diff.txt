@@ -1,0 +1,3 @@
++interface GigabitEthernet1
+- no shutdown
++route-map Policy-PASS permit

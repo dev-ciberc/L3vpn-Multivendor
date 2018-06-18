@@ -1,0 +1,36 @@
+routing-options {
+    router-id 11.11.11.11;
+    autonomous-system 64512;
+}
+interfaces {
+    em2 {
+        unit 0 {
+            family inet {
+                address 11.0.0.1/30;
+            }
+        }
+    }
+}
+routing-instances {                     
+ VPN-A {
+        instance-type vrf;
+        interface em2;
+        route-distinguisher 64512:65512;
+        vrf-target target:64512:65512;
+        vrf-table-label;
+        protocols {
+            bgp {
+                group CE {
+                    type external;
+                    family inet {
+                        unicast;
+                    }
+                    neighbor  11.0.0.2 {
+                        peer-as 65512;
+                        as-override;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+!
+vrf definition VPN-A
+ rd 64512:65512
+ !
+ address-family ipv4
+  import map Policy-PASS
+  route-target export 64512:65512
+  route-target import 64512:65512
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+interface GigabitEthernet1
+ vrf forwarding VPN-A
+ ip address 11.0.0.5 255.255.255.252
+ no shutdown 
+ negotiation auto
+!
+route-map Policy-PASS permit
+!
+router bgp 64512
+ bgp router-id 22.22.22.22
+ !
+ address-family ipv4 vrf VPN-A
+  neighbor 11.0.0.6 remote-as 65512
+  neighbor 11.0.0.6 activate
+  neighbor 11.0.0.6 as-override
+ exit-address-family
+ !
+
+ 

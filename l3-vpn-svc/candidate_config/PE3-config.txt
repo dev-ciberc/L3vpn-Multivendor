@@ -1,0 +1,37 @@
+!
+vrf VPN-A
+ address-family ipv4 unicast
+  import route-target
+   64512:65512
+  !
+  export route-target
+   64512:65512
+  !
+!
+interface GigabitEthernet0/0/0/0
+ vrf VPN-A
+ ipv4 address 11.0.0.9/30
+ no shutdown
+!
+!
+route-policy Policy-PASS
+  pass
+end-policy
+!
+router bgp 64512
+ bgp router-id 33.33.33.33
+ address-family vpnv4 unicast
+ vrf VPN-A
+  rd 64512:65512
+  address-family ipv4 unicast
+  !
+  neighbor 11.0.0.10
+   remote-as 65512
+   address-family ipv4 unicast
+    route-policy Policy-PASS in
+    route-policy Policy-PASS out
+    as-override
+   !
+  !
+ !
+!

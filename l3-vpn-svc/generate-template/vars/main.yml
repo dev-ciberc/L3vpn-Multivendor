@@ -1,0 +1,44 @@
+---
+common:
+  local_bgp_as: 64512
+nodes:
+  PE1:
+    rid:  11.11.11.11
+    vpn_int_ip: 11.0.0.1
+    vpn_int_mask: /30
+    vpn_bpg_neighbor_ip: 11.0.0.2
+    interface: em2
+    vpn_name: VPN-A
+    vpn_rt: 64512:65512
+    vpn_rd: 64512:65512
+    neighbor_BGP_Remote_AS: 65512
+  PE2:
+    rid:  22.22.22.22
+    vpn_int_ip: 11.0.0.5
+    vpn_int_mask: 255.255.255.252
+    vpn_bpg_neighbor_ip: 11.0.0.6
+    interface: GigabitEthernet1
+    vpn_name: VPN-A
+    vpn_rt: 64512:65512
+    vpn_rd: 64512:65512
+    neighbor_BGP_Remote_AS: 65512
+  PE3:
+    rid:  33.33.33.33
+    vpn_int_ip: 11.0.0.9
+    vpn_int_mask: /30
+    vpn_bpg_neighbor_ip: 11.0.0.10
+    interface: GigabitEthernet0/0/0/0
+    vpn_name: VPN-A
+    vpn_rt: 64512:65512
+    vpn_rd: 64512:65512
+    neighbor_BGP_Remote_AS: 65512
+  PE4:
+    rid:  44.44.44.44
+    vpn_int_ip: 11.0.0.13
+    vpn_int_mask: /30
+    vpn_bpg_neighbor_ip: 11.0.0.14
+    interface: GigabitEthernet0/0/0/1
+    vpn_name: VPN-A
+    vpn_rt: 64512:65512
+    vpn_rd: 64512:65512
+    neighbor_BGP_Remote_AS: 65512
