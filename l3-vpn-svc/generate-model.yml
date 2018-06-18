@@ -1,0 +1,6 @@
+- hosts: localhost
+  name: Creando el modelo de datos por dispositivo
+  gather_facts: no
+
+  roles:
+   - role: generate-model

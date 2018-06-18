@@ -1,0 +1,18 @@
+---
+common:
+  local_bgp_as: {{ common.bgp_asn }}
+nodes:
+{% for node in nodes %}
+  {{ node.name }}:
+    rid:  {{ node.rid }}
+    vpn_int_ip: {{ node.vpn_int_ip }}
+    vpn_int_mask: {{ node.vpn_int_mask }}
+    vpn_bpg_neighbor_ip: {{ node.vpn_bpg_neighbor_ip }}
+    interface: {{ node.interface }}
+{% for vpn  in vpn_service %}
+    vpn_name: {{ vpn.vpn_name }}
+    vpn_rt: {{ vpn.route_target }}
+    vpn_rd: {{ vpn.route_distinguisher }}
+    neighbor_BGP_Remote_AS: {{ vpn.neighbor_remote_as }}
+{% endfor %}
+{% endfor %}

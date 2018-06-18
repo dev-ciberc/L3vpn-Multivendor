@@ -1,0 +1,7 @@
+- name: Generando configuracion en todos los routers
+  gather_facts: no
+  connection: local
+  hosts: PE1, PE2, PE3, PE4
+
+  roles:
+   - role: generate-template

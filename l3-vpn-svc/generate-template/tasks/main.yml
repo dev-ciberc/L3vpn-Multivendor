@@ -1,0 +1,6 @@
+- name: Creando directorio de configuraciones
+  file: path=./candidate_config  state=directory
+  run_once: true
+- name: Creando plantillas de configuracion de los equipos en base al service model
+  template: src=./{{dev_os}}/core.j2 dest=./candidate_config/{{inventory_hostname}}-config.txt
+

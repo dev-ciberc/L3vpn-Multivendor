@@ -1,0 +1,3 @@
+---
+- name: Creando device data model
+  template: src=./data-to-device-model.j2 dest=./generate-template/vars/main.yml

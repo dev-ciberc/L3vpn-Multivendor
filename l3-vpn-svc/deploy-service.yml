@@ -1,0 +1,53 @@
+## Tercer Play
+# las variables commit son utilizadas para controlar el playbook
+# si commit=0 no aplicara los cambios y unicamente generara un diff
+# si commit=1 generara los cambios y aplicara un diff, correr el playbook con --tag despliegue --e "commit=1" 
+- name: Enviando la configuracion a los dispositivos (push method)
+  gather_facts: no
+  connection: local
+  hosts: PE1, PE3, PE4
+  tags: [ deploy ]
+  tasks:
+    - include_vars: "./generate-template/vars/main.yml"
+    - file: path=diff state=directory
+      run_once: true
+    - name: cargando la configuracion en los dispositivos
+      napalm_install_config:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        dev_os: "{{dev_os}}"
+        password: "{{ password }}"
+        config_file: ./candidate_config/{{inventory_hostname}}-config.txt
+#       commit_changes: "{{commit}}"
+        commit_changes: True
+        diff_file: diff/{{inventory_hostname}}-diff.txt
+      when: "inventory_hostname in nodes.keys()"
+
+## Cuarto Play #Aqui se puede omitir con un if then en el playbook anterior.
+# las variables commit son utilizadas para controlar el playbook
+# si commit=0 no aplicara los cambios y unicamente generara un diff
+# si commit=1 generara los cambios y aplicara un diff, correr el playbook con --tag despliegue --e "commit=1" 
+- name: Enviando la configuracion a los dispositivos (push method)
+  gather_facts: no
+  connection: local
+  hosts: PE2
+  tags: [ deploy ]
+  tasks:
+    - include_vars: "./generate-template/vars/main.yml"
+    - file: path=diff state=directory
+      run_once: true
+    - name: cargando la configuracion en los dispositivos
+      napalm_install_config:
+        hostname: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        dev_os: "{{dev_os}}"
+        password: "{{ password }}"
+        optional_args:
+         secret: "{{ secret }}"
+         inline_transfer: True
+        config_file: ./candidate_config/{{inventory_hostname}}-config.txt
+#       commit_changes: "{{commit}}"
+        commit_changes: True
+        diff_file: diff/{{inventory_hostname}}-diff.txt
+      when: "inventory_hostname in nodes.keys()"
+

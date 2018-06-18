@@ -1,0 +1,37 @@
+{% set node = nodes[inventory_hostname] %}
+routing-options {
+    router-id {{ node.rid }};
+    autonomous-system {{ common.local_bgp_as }};
+}
+interfaces {
+    em2 {
+        unit 0 {
+            family inet {
+                address {{node.vpn_int_ip}}{{node.vpn_int_mask}};
+            }
+        }
+    }
+}
+routing-instances {                     
+ {{node.vpn_name}} {
+        instance-type vrf;
+        interface {{node.interface}};
+        route-distinguisher {{node.vpn_rd}};
+        vrf-target target:{{node.vpn_rt}};
+        vrf-table-label;
+        protocols {
+            bgp {
+                group CE {
+                    type external;
+                    family inet {
+                        unicast;
+                    }
+                    neighbor  {{node.vpn_bpg_neighbor_ip}} {
+                        peer-as {{node.neighbor_BGP_Remote_AS}};
+                        as-override;
+                    }
+                }
+            }
+        }
+    }
+}

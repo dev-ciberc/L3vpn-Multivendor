@@ -1,0 +1,38 @@
+{% set node = nodes[inventory_hostname] %}
+!
+vrf {{node.vpn_name}}
+ address-family ipv4 unicast
+  import route-target
+   {{node.vpn_rt}}
+  !
+  export route-target
+   {{node.vpn_rt}}
+  !
+!
+interface {{ node.interface }}
+ vrf {{node.vpn_name}}
+ ipv4 address {{node.vpn_int_ip}}{{node.vpn_int_mask}}
+ no shutdown
+!
+!
+route-policy Policy-PASS
+  pass
+end-policy
+!
+router bgp {{common.local_bgp_as}}
+ bgp router-id {{ node.rid }}
+ address-family vpnv4 unicast
+ vrf {{node.vpn_name}}
+  rd {{node.vpn_rd}}
+  address-family ipv4 unicast
+  !
+  neighbor {{node.vpn_bpg_neighbor_ip}}
+   remote-as {{node.neighbor_BGP_Remote_AS}}
+   address-family ipv4 unicast
+    route-policy Policy-PASS in
+    route-policy Policy-PASS out
+    as-override
+   !
+  !
+ !
+!
