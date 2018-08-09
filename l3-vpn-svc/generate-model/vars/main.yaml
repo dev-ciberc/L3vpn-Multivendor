@@ -28,7 +28,7 @@ nodes:
     vpn_int_mask: /30
     vpn_int_ip: 11.0.0.9
     vpn_bpg_neighbor_ip: 11.0.0.10
-    interface: GigabitEthernet0/0/0/0
+    interface: GigabitEthernet0/0/0/1
 
   - name: PE4
     rid: 44.44.44.44
