@@ -182,7 +182,9 @@ you can check the configuration in the devices, or in the RR (see the video exam
 If you have questions, concerns, bug reports, etc., please create an issue against this repository, or send me a email
 to: raul.flores@ciberc.com
 
+#Link Video Example 
 
+https://www.youtube.com/watch?v=MnZQZNcFetk&t=692s
 
 
 
