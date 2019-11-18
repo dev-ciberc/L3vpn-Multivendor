@@ -1,12 +1,12 @@
-# **** Automatic L3vpn Multivendor with Ansible and NAPALM (IOS,XR,Junos,etc)*****
+#  Automatic L3vpn Multivendor with Ansible and NAPALM (IOS,XR,Junos,etc)
 
 Automatically create and deploy an L3VPN service (template creation, configuration and validation that the network is in the way its configuration was planned and that there are no floating configurations), the l3vpn service model is loaded into an ansible playbook and based on The same model creates a template of configurations for each type of equipment involved in the service and then through NAPALM-Ansible library deploys the service to multiple network devices, in the example shown in the demonstration video on YouTube (I leave link below) an automated deployment of l3vpn to devices with IOS, XR, JunOS is shown and it is validated that they announce prefixes, BGP is used as PE-CE protocol, but any type of IGP can be used in the same way as PE-CE.
 
-# **** Technology stack****
+#  Technology stack
 
 Python 3.x, Ansible 2.7 or higher, it can be run on windows as long as ubuntu as WSL is installed and from there run it
 
-# ** Status:**
+#  Status
 
 Only one version already tested and validated in emulated enviroment (EVE-NG with multivendor ISP Topology, see the video link below)
 
@@ -118,7 +118,7 @@ ssh server v2
 once we have everything ready we will proceed to edit the variables in the file that is in the path: l3-vpn-svc/generate-template/vars/ main.yaml  (create it and name it as main.yaml if it is not found), change the data of the variables as you need your L3VPN service:
 
 example of configuration (you need change the values, important to follow the same structure, in this example the minimum required to build an l3vpn service is assumed (does not include the configuration of the session towards the RR, You have currenct active session   MP-BGP in the up state with the PE to the RR):
-
+<pre>
 ---
 common:
   bgp_asn: 64512
@@ -157,16 +157,19 @@ nodes:
     vpn_int_ip: 11.0.0.13
     vpn_bpg_neighbor_ip: 11.0.0.14
     interface: GigabitEthernet0/0/0/1
-    
+</pre>
 run the foloweeds commands:
-
-**sudo ansible-playbook -i hosts generate-model.yml**
+<pre>
+ ansible-playbook -i hosts generate-model.yml
+</pre>
 (this command create a main.yml file in the path: l3-vpn-svc/generate-template/vars/) please check if its correctly created.
-
-**sudo ansible-playbook -i hosts generate-template.yml**
+<pre>
+ansible-playbook -i hosts generate-template.yml
+</pre>
 (this command create all txt configs in txt in candidate_config file)
-
-**sudo ansible-playbook -i hosts deploy-service.yml**
+<pre>
+ansible-playbook -i hosts deploy-service.yml
+</pre>
 (this command put the configuration using Ansible-NAPALM to the devices.)
 
 # **How to test the software**
