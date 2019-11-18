@@ -1,22 +1,10 @@
-# L3VPN-SV
-L3VPN Multivendor Service
+Automatic L3vpn Multivendor with Ansible and NAPALM (IOS,XR,Junos,etc)
 
-The main objective of the following application is to create a l3VPN in an automated multivendor way (BGP as CE-PE), using it only you have to install ansible version 2.6 or later to run it, to see more details on how to use it see the following video where I give step by step an example with an emulated multivendor network.
+Automatically create and deploy an L3VPN service (template creation, configuration and validation that the network is in the way its configuration was planned and that there are no floating configurations), the l3vpn service model is loaded into an ansible playbook and based on The same model creates a template of configurations for each type of equipment involved in the service and then through NAPALM-Ansible library deploys the service to multiple network devices, in the example shown in the demonstration video on YouTube (I leave link below) an automated deployment of l3vpn to devices with IOS, XR, JunOS is shown and it is validated that they announce prefixes, BGP is used as PE-CE protocol, but any type of IGP can be used in the same way as PE-CE.
 
-Requirements:
-Ansible 2.6+
-python3.6+
-napalm last version (pip install napalm-ansible)
+Technology stack
+Python 3.x, Ansible 2.7 or higher, it can be run on windows as long as ubuntu as WSL is installed and from there run it
 
-See the following video for more detail:
-https://www.youtube.com/watch?v=MnZQZNcFetk&t=576s
+Status:
+Only one version already tested and validated in emulated enviroment (EVE-NG with multivendor ISP Topology, see the video link below)
 
-
-commands to run this Role in ansible
-Only put 3 commands to ejecute all service l3VPN Multivendor deployment (Update the model with your variables)
-
-ansible-playbook -i host generate-model.yml
-ansible-playbook -i host generate-template.yml
-ansible-playbook -i host deploy-service.yml
-
-enjoy it.
