@@ -1,7 +1,5 @@
 [![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/Raul-Flores/L3vpn-Multivendor)
 
-[![Build Status](https://travis-ci.org/Raul-Flores/L3vpn-Multivendor.svg?branch=master)](https://travis-ci.org/Raul-Flores/L3vpn-Multivendor)
-
 
 #  Automatic L3vpn Multivendor with Ansible and NAPALM (IOS,XR,Junos,etc)
 
