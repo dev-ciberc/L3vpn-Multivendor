@@ -49,47 +49,50 @@ The following lines are desirable for IPv6 capable hosts
 
 # **Structure:**
 (venv-l3vpn) rflores@Raul-Flores-Trabajo:~/venv-l3vpn/L3vpn-Multivendor/l3-vpn-svc
+
+ <pre>
 $ tree
-
-  ***ansible.cfg***
- ***candidate_config***
- ***   PE1-config.txt***
- ***   PE2-config.txt***
- ***   PE3-config.txt***
- ***   PE4-config.txt***
- ***deploy-service.yml***
- ***diff***
- ***   PE1-diff.txt***
- ***   PE2-diff.txt***
- ***   PE3-diff.txt***
- ***   PE4-diff.txt***
- ***generate-model***
- ***   tasks***
- ***      main.yml***
- ***   templates***
- ***      data-to-device-model.j2***
- ***   vars***
- ***       main.yaml***
- ***generate-model.yml***
- ***generate-template***
- ***   tasks***
- ***      main.yml***
- ***   templates***
- ***      ios***
- ***         core.j2***
- ***      iosxr***
- ***         core.j2***
- ***      junos***
- ***          core.j2***
- ***   vars***
- ***       main.yml***
- ***generate-template.yml***
- ***hosts***
- ***requirements.txt***
-
-
+ ansible.cfg
+ candidate_config
+    PE1-config.txt
+    PE2-config.txt
+    PE3-config.txt
+    PE4-config.txt
+ deploy-service.yml
+ diff
+    PE1-diff.txt
+    PE2-diff.txt
+    PE3-diff.txt
+    PE4-diff.txt
+ generate-model
+    tasks
+       main.yml
+    templates
+       data-to-device-model.j2
+    vars
+        main.yaml
+ generate-model.yml
+ generate-template
+    tasks
+       main.yml
+    templates
+       ios
+          core.j2
+       iosxr
+          core.j2
+       junos
+           core.j2
+    vars
+        main.yml
+ generate-template.yml
+ hosts
+ requirements.txt
+ </pre>
+ 
 There are .txt files (you can delete them), the program automatically creates them so delete these files (in the folders of candidate_config and diff)
+
 rm candidate_config/*.txt
+
 rm diff/*.txt
 
 delete the file name main.yml that is in the path: (generate-template/vars/main.yml) This file is generated so that the template generation model can build the equipment configurations, delete it as it will be created automatically from the service model data.
@@ -100,21 +103,16 @@ rm generate-model/vars/main.yaml
 to deploy the service once you have defined the equipment in the hosts file (here the user and password that will be applied by device type are defined), the names of the network devices correctly (in the file etc/hosts) and the devices have the configuration of SSH, then I would place the example commands to activate ssh and xml agent in XR, (this is important since if it cannot be reached through SSH it will not support it, the other examples of configurations by equipment (IOS, Junos) is beyond the scope of this information, (it is assumed that the engineer can configure this as it is something basic)
 
 ## configuration example in XR device
+ <pre>
 !
-
 crypto key generate dsa
-
 !
 xml agent tty
-
 iteration off
-
 !
-
 ssh server v2
-
 !
-
+ </pre>
 (username and password admin by default)
 
 once we have everything ready we will proceed to edit the variables in the file that is in the path: l3-vpn-svc/generate-template/vars/ main.yaml  (create it and name it as main.yaml if it is not found), change the data of the variables as you need your L3VPN service:
