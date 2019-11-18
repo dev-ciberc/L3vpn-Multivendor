@@ -1,0 +1,15 @@
+.travis.yml
+---
+sudo: required
+env:
+  - distribution: ubuntu
+    version: bionic
+
+language: python
+python:
+  - "3.6"
+install:
+  - pip install -r requirements.txt
+# command to run tests
+script:
+  - ansible-playbook -i generate-model/tasks/main.yml --syntax-check
