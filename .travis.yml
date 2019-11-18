@@ -11,4 +11,4 @@ install:
   - pip install -r requirements.txt
 # command to run tests
 script:
-  - ansible-playbook -i generate-model/tasks/main.yml --syntax-check
+  - ansible-playbook generate-model/tasks/main.yml --syntax-check
