@@ -11,7 +11,7 @@ future==0.18.2
 idna==2.8
 Jinja2==2.11.3
 junos-eznc==2.2.1
-lxml==4.6.3
+lxml==4.6.5
 MarkupSafe==1.1.1
 napalm==2.5.0
 napalm-ansible==1.0.0
